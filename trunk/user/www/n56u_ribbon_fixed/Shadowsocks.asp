@@ -1206,7 +1206,6 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 					document.getElementById('v2_splithttp_host').value = ssm.host;
 					document.getElementById('v2_splithttp_path').value = ssm.path;
 				}
-				}
 				if (ssm.tls == "tls") {
 					document.getElementById('v2_tls').value = '1';
 					//document.getElementById('v2_tls').checked = true;
@@ -1290,7 +1289,6 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 					    else if(queryParam.flow == 'xtls-rprx-vision-udp443'){
 					    	document.getElementById('v2_flow').value = '2';
 					    }
-					    else
 					    else
 					    {
 					    	document.getElementById('v2_flow').value = '0';
