@@ -569,7 +569,6 @@ gen_ralink_config(int is_soc_ap, int is_aband, int disable_autoscan)
 	char list[2048], *p_str, *c_val_mbss[2];
 	int i_pmfr, i_pmfsha256;
 	int i, i_num,  i_val, i_wmm, i_ldpc, i_stbc;
-	int i, i_num,  i_val, i_wmm, i_ldpc;
 	int i_mode_x, i_phy_mode, i_gfe, i_auth, i_encr, i_wep, i_wds;
 	int i_ssid_num, i_channel, i_channel_max, i_HTBW_MAX;
 	int i_stream_tx, i_stream_rx, i_mphy, i_mmcs, i_fphy[2], i_val_mbss[2];
