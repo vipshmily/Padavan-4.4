@@ -434,7 +434,7 @@ static void handle_invalid_option(char *prog_name, char *opt_name, char **sectio
 }
 
 
-static void print_help(int error, char *prog_name, char *syntax, char **sections, char **options_text)
+static void print_help(char *prog_name, int error, char *syntax, char **sections, char **options_text)
 {
 	FILE *stream = error ? stderr : stdout;
 	int cols = get_column_width();
@@ -481,53 +481,53 @@ void unsquashfs_option(char *opt_name, char *pattern)
 
 void unsquashfs_help(int error)
 {
-	print_help(error, "unsquashfs", UNSQUASHFS_SYNTAX, unsquashfs_sections, unsquashfs_text);
+	print_help("unsquashfs", error, UNSQUASHFS_SYNTAX, unsquashfs_sections, unsquashfs_text);
 }
 
 
-void unsquashfs_invalid_option(char *prog_name, char *opt_name)
+void unsquashfs_invalid_option(char *opt_name)
 {
-	handle_invalid_option(prog_name, opt_name, unsquashfs_sections, unsquashfs_text);
+	handle_invalid_option("unsquashfs", opt_name, unsquashfs_sections, unsquashfs_text);
 }
 
 
-void unsquashfs_option_help(char *prog_name, char *option)
+void unsquashfs_option_help(char *option)
 {
-	print_option_help(prog_name, option, unsquashfs_sections, unsquashfs_text);
+	print_option_help("unsquashfs", option, unsquashfs_sections, unsquashfs_text);
 }
 
 
-void sqfscat_help_all(char *name)
+void sqfscat_help_all(void)
 {
-	print_help_all(name, SQFSCAT_SYNTAX, sqfscat_text);
+	print_help_all("sqfscat", SQFSCAT_SYNTAX, sqfscat_text);
 }
 
 
-void sqfscat_section(char *prog_name, char *opt_name, char *sec_name)
+void sqfscat_section(char *opt_name, char *sec_name)
 {
-	print_section(prog_name, opt_name, sec_name, sqfscat_sections, sqfscat_text);
+	print_section("sqfscat", opt_name, sec_name, sqfscat_sections, sqfscat_text);
 }
 
 
-void sqfscat_option(char *prog_name, char *opt_name, char *pattern)
+void sqfscat_option(char *opt_name, char *pattern)
 {
-	print_option(prog_name, opt_name, pattern, sqfscat_options, sqfscat_args, sqfscat_text);
+	print_option("sqfscat", opt_name, pattern, sqfscat_options, sqfscat_args, sqfscat_text);
 }
 
 
-void sqfscat_help(int error, char *prog_name)
+void sqfscat_help(int error)
 {
-	print_help(error, prog_name, SQFSCAT_SYNTAX, sqfscat_sections, sqfscat_text);
+	print_help("sqfscat", error, SQFSCAT_SYNTAX, sqfscat_sections, sqfscat_text);
 }
 
 
-void sqfscat_invalid_option(char *prog_name, char *opt_name)
+void sqfscat_invalid_option(char *opt_name)
 {
-	handle_invalid_option(prog_name, opt_name, sqfscat_sections, sqfscat_text);
+	handle_invalid_option("sqfscat", opt_name, sqfscat_sections, sqfscat_text);
 }
 
 
-void sqfscat_option_help(char *prog_name, char *option)
+void sqfscat_option_help(char *option)
 {
-	print_option_help(prog_name, option, sqfscat_sections, sqfscat_text);
+	print_option_help("sqfscat", option, sqfscat_sections, sqfscat_text);
 }
