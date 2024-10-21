@@ -62,6 +62,7 @@ char *pseudo_definitions[] = {
 	"s mode uid gid symlink",
 	"i mode uid gid [s|f]",
 	"x name=value",
+	"h filename",
 	"l filename",
 	"L pseudo_filename",
 	"D time mode uid gid",
@@ -469,7 +470,7 @@ error:
 }
 
 
-static struct pseudo_dev *read_pseudo_def_link(char *orig_def, char *def, char *destination)
+static struct pseudo_dev *read_pseudo_def_link(char *orig_def, char *def, char *destination, int follow)
 {
 	char *linkname, *link;
 	int quoted = FALSE;
@@ -523,6 +524,18 @@ static struct pseudo_dev *read_pseudo_def_link(char *orig_def, char *def, char *
 		ERROR("Not enough or invalid arguments in pseudo link file "
 			"definition \"%s\"\n", orig_def);
 		goto error;
+	}
+
+	if(follow) {
+		char *resolved_linkname = realpath(linkname, NULL);
+
+		if (resolved_linkname == NULL) {
+			ERROR("Cannot resolve pseudo link file %s because %s\n", linkname, strerror(errno));
+			goto error;
+		}
+
+		free(linkname);
+		linkname = resolved_linkname;
 	}
 
 	dev = malloc(sizeof(struct pseudo_dev));
@@ -1185,10 +1198,12 @@ static int read_pseudo_def(char *def, char *destination, char *pseudo_file, stru
 	if(type == 'x')
 		xattr = read_pseudo_xattr(def);
 	else if(type == 'l')
-		dev = read_pseudo_def_link(orig_def, def, destination);
+		dev = read_pseudo_def_link(orig_def, def, destination, 0);
+	else if(type == 'h')
+		dev = read_pseudo_def_link(orig_def, def, destination, 1);
 	else if(type == 'L')
 		dev = read_pseudo_def_pseudo_link(orig_def, def);
-	if(is_original_def(type))
+	else if(is_original_def(type))
 		dev = read_pseudo_def_original(type, orig_def, def);
 	else if(is_extended_def(type))
 		dev = read_pseudo_def_extended(type, orig_def, def, pseudo_file, file);

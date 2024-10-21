@@ -363,6 +363,7 @@ static char *mksquashfs_text[]={
 	"\"filename i mode uid gid [s|f]\"\t\tcreate a socket (s) or FIFO "
 		"(f)\n",
 	"\"filename x name=val\"\t\t\tcreate an extended attribute\n",
+	"\"filename h linkname\"\t\t\tcreate a hard-link to linkname, follows symlinks\n",
 	"\"filename l linkname\"\t\t\tcreate a hard-link to linkname\n",
 	"\"filename L pseudo_filename\"\t\tsame, but link to pseudo file\n",
 	"\"filename D time mode uid gid\"\t\tcreate a directory with timestamp "
@@ -584,6 +585,7 @@ static char *sqfstar_text[]={
 	"\"filename i mode uid gid [s|f]\"\t\tcreate a socket (s) or FIFO "
 		"(f)\n",
 	"\"filename x name=val\"\t\t\tcreate an extended attribute\n",
+	"\"filename h linkname\"\t\t\tcreate a hard-link to linkname, follows symlinks\n",
 	"\"filename l linkname\"\t\t\tcreate a hard-link to linkname\n",
 	"\"filename L pseudo_filename\"\t\tsame, but link to pseudo file\n",
 	"\"filename D time mode uid gid\"\t\tcreate a directory with timestamp "
@@ -782,7 +784,7 @@ static void handle_invalid_option(char *prog_name, char *opt_name, char **sectio
 }
 
 
-static void print_help(int error, char *prog_name, char *syntax, char **sections, char **options_text)
+static void print_help(char *prog_name, int error, char *syntax, char **sections, char **options_text)
 {
 	FILE *stream = error ? stderr : stdout;
 	int cols = get_column_width();
@@ -809,65 +811,65 @@ static void print_option_help(char *prog_name, char *option, char **sections, ch
 }
 
 
-void mksquashfs_help_all(char *name)
+void mksquashfs_help_all(void)
 {
-	print_help_all(name, MKSQUASHFS_SYNTAX, mksquashfs_text);
+	print_help_all("mksquashfs", MKSQUASHFS_SYNTAX, mksquashfs_text);
 }
 
 
-void sqfstar_help_all(char *name)
+void sqfstar_help_all(void)
 {
-	print_help_all(name, SQFSTAR_SYNTAX, sqfstar_text);
+	print_help_all("sqfstar", SQFSTAR_SYNTAX, sqfstar_text);
 }
 
 
-void mksquashfs_option(char *prog_name, char *opt_name, char *pattern)
+void mksquashfs_option(char *opt_name, char *pattern)
 {
-	print_option(prog_name, opt_name, pattern, mksquashfs_options, mksquashfs_args, mksquashfs_text);
+	print_option("mksquashfs", opt_name, pattern, mksquashfs_options, mksquashfs_args, mksquashfs_text);
 }
 
 
-void sqfstar_option(char *prog_name, char *opt_name, char *pattern)
+void sqfstar_option(char *opt_name, char *pattern)
 {
-	print_option(prog_name, opt_name, pattern, sqfstar_options, sqfstar_args, sqfstar_text);
+	print_option("sqfstar", opt_name, pattern, sqfstar_options, sqfstar_args, sqfstar_text);
 }
 
-void mksquashfs_section(char *prog_name, char *opt_name, char *sec_name)
+void mksquashfs_section(char *opt_name, char *sec_name)
 {
-	print_section(prog_name, opt_name, sec_name, mksquashfs_sections, mksquashfs_text);
+	print_section("mksquashfs", opt_name, sec_name, mksquashfs_sections, mksquashfs_text);
 }
 
-void sqfstar_section(char *prog_name, char *opt_name, char *sec_name)
+void sqfstar_section(char *opt_name, char *sec_name)
 {
-	print_section(prog_name, opt_name, sec_name, sqfstar_sections, sqfstar_text);
+	print_section("sqfstar", opt_name, sec_name, sqfstar_sections, sqfstar_text);
 }
 
-void mksquashfs_help(int error, char *prog_name)
+void mksquashfs_help(int error)
 {
-	print_help(error, prog_name, MKSQUASHFS_SYNTAX, mksquashfs_sections, mksquashfs_text);
+	print_help("mksquashfs", error, MKSQUASHFS_SYNTAX, mksquashfs_sections, mksquashfs_text);
 }
 
-void sqfstar_help(int error, char *prog_name)
+void sqfstar_help(int error)
 {
-	print_help(error, prog_name, SQFSTAR_SYNTAX, sqfstar_sections, sqfstar_text);
+	print_help("sqfstar", error, SQFSTAR_SYNTAX, sqfstar_sections, sqfstar_text);
 }
 
-void mksquashfs_invalid_option(char *prog_name, char *opt_name)
+void mksquashfs_invalid_option(char *opt_name)
 {
-	handle_invalid_option(prog_name, opt_name, mksquashfs_sections, mksquashfs_text);
+	handle_invalid_option("mksquashfs", opt_name, mksquashfs_sections, mksquashfs_text);
 }
 
-void sqfstar_invalid_option(char *prog_name, char *opt_name)
+void sqfstar_invalid_option(char *opt_name)
 {
-	handle_invalid_option(prog_name, opt_name, sqfstar_sections, sqfstar_text);
+	handle_invalid_option("sqfstar", opt_name, sqfstar_sections, sqfstar_text);
 }
 
-void mksquashfs_option_help(char *prog_name, char *option)
+void mksquashfs_option_help(char *option)
 {
-	print_option_help(prog_name, option, mksquashfs_sections, mksquashfs_text);
+	print_option_help("mksquashfs", option, mksquashfs_sections, mksquashfs_text);
 }
 
-void sqfstar_option_help(char *prog_name, char *option)
+void sqfstar_option_help(char *option)
 {
-	print_option_help(prog_name, option, sqfstar_sections, sqfstar_text);
+	print_option_help("sqfstar", option, sqfstar_sections, sqfstar_text);
 }
